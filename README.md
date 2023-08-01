@@ -13,8 +13,8 @@ the machines that the Polish Cipher Bureau and those at Britain’s Bletchley Pa
 or break. Most recently the story of how it was broken was the topic of the movie The Imitation Game.
 
 More information about how it works at :
-1. [Hack A Day](https://hackaday.com/tag/enigma-machine/)
-2. [Wikipedia](https://en.wikipedia.org/wiki/Enigma_machine)
+* [Hack A Day](https://hackaday.com/tag/enigma-machine/)
++ [Wikipedia](https://en.wikipedia.org/wiki/Enigma_machine)
 
 # Code Examples 
 
@@ -26,7 +26,7 @@ is necessary to use the same configuration of the instance used for encoding in 
 
 ### C++ Encryption Code Example
 ```
-  {
+  { 
     std::shared_ptr<enigma> cypher = std::make_shared<enigma>();
     (*cypher).manage_reflector_load( reflector_paths().B );
     (*cypher).manage_rotor_load( rotor_paths().II , rotor_paths().IV , rotor_paths().I , rotor_paths().V );
