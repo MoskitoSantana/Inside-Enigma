@@ -41,7 +41,7 @@ is necessary to use the same configuration of the instance used for encoding in 
 ### Python Encryption Code Example
 ![carbon (5)](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/569800af-fd1f-49cb-bc8b-7d47b959701f)
 
-### Python Desencyption COde Example
+### Python Desencyption Code Example
 ![carbon (4)](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/6c11cf86-fbac-43e7-a281-7b51f8e65db9)
 
 ### Python Rotor Files Generation
