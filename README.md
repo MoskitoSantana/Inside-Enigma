@@ -1,4 +1,4 @@
-+# Inside-Enigma
+# Inside-Enigma
 With a little passion for history, cryptography and a desire to program, I created my own version of the Enigma M4 
 encryption machine model used by the Kriegsmarine, with alphabets extended to 64 ASCII printable characters.
 
