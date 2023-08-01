@@ -25,28 +25,117 @@ is necessary to use the same configuration of the instance used for encoding in 
 
 
 ### C++ Encryption Code Example
-![c++enigma_encryption](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/0bdca044-e44d-4d8c-be61-7745ce60f68a)
+```
+  {
+    std::shared_ptr<enigma> cypher = std::make_shared<enigma>();
+    (*cypher).manage_reflector_load( reflector_paths().B );
+    (*cypher).manage_rotor_load( rotor_paths().II , rotor_paths().IV , rotor_paths().I , rotor_paths().V );
+    (*cypher).ringstellum('A','(','/','f');
+    (*cypher).manage_plugboard_connections(4,54);
+    (*cypher).manage_plugboard_connections(90,24);
+    (*cypher).manage_plugboard_connections(5,75);
+    (*cypher).manage_plugboard_connections(84,31);
+    (*cypher).encode_string(msg_for_enigma);
+  }  
+
+```
 
 ### C++ Desencryption Code Example
-![desencryption](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/b4b6256c-8112-4ab4-b6c9-d153f3e15de6)
+```
+  {
+    std::shared_ptr<enigma> decoder = std::make_shared<enigma>();
+    (*decoder).manage_reflector_load( reflector_paths().B );
+    (*decoder).manage_rotor_load( rotor_paths().II , rotor_paths().IV , rotor_paths().I , rotor_paths().V );
+    (*decoder).ringstellum('A','(','/','f');
+    (*decoder).manage_plugboard_connections(4,54);
+    (*decoder).manage_plugboard_connections(90,24);
+    (*decoder).manage_plugboard_connections(5,75);
+    (*decoder).manage_plugboard_connections(84,31);
+    (*decoder).encode_string(msg_for_enigma);
+  }  
+```
 
 ### C++ Rotor Files Generation
-![rotor_generator](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/3488f319-be63-498c-98fe-f1852ed4c470)
+```
+  auto rotor_names = { "R1" , "R2" , "R3" };
+
+  for( auto rotor_name : rotor_names ){
+    gen_rotors( rotor_name );
+  }
+
+```
 
 ### C++ Reflector Files Generation
-![reflectorgeneration](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/a79779ba-6a7b-411d-83c6-b21105e40bd5)
+```
+  auto reflector_names = { "RFL1" , "RFL2" , "RFL3" };
+
+  for( auto reflector_name : reflector_names ){
+    gen_reflector( reflector_name );
+  }
+
+```
 
 ## Python Snippets
 
 ### Python Encryption Code Example
-![carbon (5)](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/569800af-fd1f-49cb-bc8b-7d47b959701f)
+```
+from enigma_py import enigma_py
+
+
+def main():
+
+    msg_for_enigma = "Alea Jacta Est!"
+    cypher = enigma_py.enigma()
+
+    cypher.manage_rotor_load( enigma_py.rotor_paths().I , enigma_py.rotor_paths().III , enigma_py.rotor_paths().IV , enigma_py.rotor_paths().V )
+    cypher.manage_reflector_load( enigma_py.reflector_paths().B )
+    cypher.ringstellum( 'A' , 'c' , '#' , 'p' )
+
+    cyphered_msg_for_enigma = cypher.py_encode_string( msg_for_enigma )
+
+```
 
 ### Python Desencyption Code Example
-![carbon (4)](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/6c11cf86-fbac-43e7-a281-7b51f8e65db9)
+```
+from enigma_py import enigma_py
+
+
+def main():
+
+    msg_for_enigma = "Alea Jacta Est!"
+    decoder = enigma_py.enigma()
+
+    decoder.manage_rotor_load( enigma_py.rotor_paths().I , enigma_py.rotor_paths().III , enigma_py.rotor_paths().IV , enigma_py.rotor_paths().V )
+    decoder.manage_reflector_load( enigma_py.reflector_paths().B )
+    decoder.ringstellum( 'A' , 'c' , '#' , 'p' )    
+    
+    decoded_msg_for_enigma = decoder.py_decode_string( cyphered_msg_for_enigma )
+
+```
 
 ### Python Rotor Files Generation
-![carbon (6)](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/7257a186-a8ee-4f4f-b735-bfb23e6b1c47)
+```
+from enigma_py import enigma_py as enp
+
+
+def main():
+
+	rotor_names : list = [ "R1" , "R2" , "R3" , "R4" ]
+
+    for rotor_name in rotor_names:
+      enp.gen_rotors( rotor_names )
+```
 
 ### Python Reflector Fies Generation
-![carbon (7)](https://github.com/MoskitoSantana/Inside-Enigma/assets/93168831/72e73731-6134-4e07-8658-9af95cf592cf)
+```
+from enigma_py import enigma_py as enp
+
+
+def main():
+
+	reflector_names : list = [ "RFL1" , "RFL2" , "RFL3" , "RFL4" ]
+
+    for reflector_name in reflector_names:
+      enp.gen_reflectors( reflector_names )
+```
 
