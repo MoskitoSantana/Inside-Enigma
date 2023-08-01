@@ -120,7 +120,7 @@ from enigma_py import enigma_py as enp
 
 def main():
 
-	rotor_names : list = [ "R1" , "R2" , "R3" , "R4" ]
+    rotor_names : list = [ "R1" , "R2" , "R3" , "R4" ]
 
     for rotor_name in rotor_names:
       enp.gen_rotors( rotor_names )
@@ -133,7 +133,7 @@ from enigma_py import enigma_py as enp
 
 def main():
 
-	reflector_names : list = [ "RFL1" , "RFL2" , "RFL3" , "RFL4" ]
+    reflector_names : list = [ "RFL1" , "RFL2" , "RFL3" , "RFL4" ]
 
     for reflector_name in reflector_names:
       enp.gen_reflectors( reflector_names )
