@@ -12,7 +12,7 @@ with keyboard included, that the Germans used to encrypt and decrypt messages du
 the machines that the Polish Cipher Bureau and those at Britain’s Bletchley Park figured out how to decipher, 
 or break. Most recently the story of how it was broken was the topic of the movie The Imitation Game.
 
-More information about how it works at 
+More information about how it works at :
 1. [Hack A Day](https://hackaday.com/tag/enigma-machine/)
 2. [Wikipedia](https://en.wikipedia.org/wiki/Enigma_machine)
 
