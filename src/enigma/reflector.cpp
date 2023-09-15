@@ -6,12 +6,13 @@ reflector::reflector(){
 }
 
 void reflector::load( const std::string& path ){
-	std::ifstream file_( path , std::ios::in );
-	if( !file_.is_open() ) {
+    std::string text;
+    std::ifstream file(path);
+    if (!file.is_open()) {
         exit(EXIT_FAILURE);
     }
-    std::string text((std::istreambuf_iterator<char>(file_)), std::istreambuf_iterator<char>());
-	file_.close();
+    std::getline(file, text, '\0');
+    file.close();
 	for( auto character : text ){
 		this->alphabet.at(1).push_back(character);
 	}
@@ -19,6 +20,7 @@ void reflector::load( const std::string& path ){
 		this->alphabet.at(0).push_back(*character);
 	}
 }
+
 
 void reflector::reflect( char &character ){
     size_t SIZE = this->alphabet.at(0).size();
@@ -33,3 +35,8 @@ void reflector::reflect( char &character ){
         }
     }
 }
+
+
+std::string reflector::load_reflector_path( const std::string & file_name ){
+	return "./reflector_files/"+file_name+".rfl";	
+};

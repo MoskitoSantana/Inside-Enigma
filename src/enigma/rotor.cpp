@@ -47,19 +47,24 @@ void rotor::reversed_rotation(){
 	std::rotate( this->alphabet[1].rbegin() , this->alphabet[1].rbegin() + 1, this->alphabet[1].rend() );
 }
 
-
 void rotor::load( const std::string& path ){
-	std::ifstream file_( path , std::ios::in );
-	if ( !file_.is_open() ) {
+    std::string text;
+    std::ifstream file(path);
+    if (!file.is_open()) {
         exit(EXIT_FAILURE);
     }
-    std::string text((std::istreambuf_iterator<char>(file_)), std::istreambuf_iterator<char>());
-	file_.close();
-	for( auto character : text ){
+    std::getline(file, text, '\0');
+    file.close();
+        for( auto character : text ){
 		this->alphabet.at(1).push_back(character);
 	}
 }
 
-const char rotor::top(){
+char rotor::top(){
     return this->alphabet[1].front();
 }
+
+
+std::string rotor::load_rotor_path( const std::string & file_name ){
+	return "./rotor_files/"+ file_name +".rot";	
+};
