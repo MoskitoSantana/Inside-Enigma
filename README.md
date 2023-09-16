@@ -139,8 +139,8 @@ def main():
  ```
 $ zig build
 ```
-*PS : Cross plataform build for python lib is not possible
-+PS2 : The rotor's and reflector's foler must be in the same folder as the executable
+* PS : Cross plataform build for python lib is not possible
++ PS2 : The rotor's and reflector's foler must be in the same folder as the executable
 ```
 -enigma_bin
 |-main.py // depends on libenigma.so shared lib
