@@ -1,6 +1,6 @@
 # Inside-Enigma
 With a little passion for history, cryptography and a desire to program, I created my own version of the Enigma M4 
-encryption machine model used by the Kriegsmarine, with alphabets extended to 64 ASCII printable characters.
+encryption machine model used by the Kriegsmarine, with alphabets extended.
 
 ## What is Enigma ?
 
@@ -23,36 +23,35 @@ is necessary to use the same configuration of the instance used for encoding in 
 
 ## C++ Snippets
 
-
-### C++ Encryption Code Example
+### C++ Enigma Configuration
 ```
-  { 
     std::shared_ptr<enigma> cypher = std::make_shared<enigma>();
-    (*cypher).manage_reflector_load( reflector_paths().B );
-    (*cypher).manage_rotor_load( rotor_paths().II , rotor_paths().IV , rotor_paths().I , rotor_paths().V );
+    (*cypher).manage_reflector_load( reflector::load_reflector_path( "B" ) );
+    (*cypher).manage_rotor_load(
+      rotor::load_rotor_path("I") , rotor::load_rotor_path("V") , 
+      rotor::load_rotor_path("IV") , rotor::load_rotor_path("VII")
+    );
     (*cypher).ringstellum('A','(','/','f');
     (*cypher).manage_plugboard_connections(4,54);
     (*cypher).manage_plugboard_connections(90,24);
     (*cypher).manage_plugboard_connections(5,75);
     (*cypher).manage_plugboard_connections(84,31);
-    (*cypher).encode_string(msg_for_enigma);
-  }  
-
 ```
 
-### C++ Desencryption Code Example
+### C++ Encryption Code Example
 ```
-  {
-    std::shared_ptr<enigma> decoder = std::make_shared<enigma>();
-    (*decoder).manage_reflector_load( reflector_paths().B );
-    (*decoder).manage_rotor_load( rotor_paths().II , rotor_paths().IV , rotor_paths().I , rotor_paths().V );
-    (*decoder).ringstellum('A','(','/','f');
-    (*decoder).manage_plugboard_connections(4,54);
-    (*decoder).manage_plugboard_connections(90,24);
-    (*decoder).manage_plugboard_connections(5,75);
-    (*decoder).manage_plugboard_connections(84,31);
-    (*decoder).encode_string(msg_for_enigma);
-  }  
+  int mode = 0;
+  switch (mode) {
+    case 0 :{
+      (*cypher).encode_string(msg_for_enigma);
+      break;
+    }
+    case 1 :{
+      (*cypher).decode_string(msg_for_enigma);
+      break;
+    }
+  }
+
 ```
 
 ### C++ Rotor Files Generation
@@ -77,65 +76,76 @@ is necessary to use the same configuration of the instance used for encoding in 
 
 ## Python Snippets
 
-### Python Encryption Code Example
+### Python Enigma Configuration Code Example
 ```
-from enigma_py import enigma_py
+import libenigma
 
+STATIC_ROTOR = libenigma.rotor()
+STATIC_REFLECTOR = libenigma.reflector()
 
 def main():
 
     msg_for_enigma = "Alea Jacta Est!"
-    cypher = enigma_py.enigma()
+    cypher = libenigma.enigma()
 
-    cypher.manage_rotor_load( enigma_py.rotor_paths().I , enigma_py.rotor_paths().III , enigma_py.rotor_paths().IV , enigma_py.rotor_paths().V )
-    cypher.manage_reflector_load( enigma_py.reflector_paths().B )
+    cypher.manage_rotor_load( STATIC_ROTOR.load_rotor_path("I") ,
+                            STATIC_ROTOR.load_rotor_path("III") ,
+                            STATIC_ROTOR.load_rotor_path("IV")  ,
+                            STATIC_ROTOR.load_rotor_path("V")
+     )
+    cypher.manage_reflector_load( STATIC_REFLECTOR.load_reflector_path( "A" ) )
+    cypher.manage_plugboard_connections(15,94)
+    cypher.manage_plugboard_connections(74,31)
     cypher.ringstellum( 'A' , 'c' , '#' , 'p' )
-
-    cyphered_msg_for_enigma = cypher.py_encode_string( msg_for_enigma )
 
 ```
 
 ### Python Desencyption Code Example
 ```
-from enigma_py import enigma_py
-
-
-def main():
-
-    msg_for_enigma = "Alea Jacta Est!"
-    decoder = enigma_py.enigma()
-
-    decoder.manage_rotor_load( enigma_py.rotor_paths().I , enigma_py.rotor_paths().III , enigma_py.rotor_paths().IV , enigma_py.rotor_paths().V )
-    decoder.manage_reflector_load( enigma_py.reflector_paths().B )
-    decoder.ringstellum( 'A' , 'c' , '#' , 'p' )    
-    
-    decoded_msg_for_enigma = decoder.py_decode_string( cyphered_msg_for_enigma )
-
+    mode : int = 0
+    msg = "Alea jacta est"
+    match mode:
+        case 0:
+            msg = enigma.py_encode_string( msg )
+        case 1:
+            msg = enigma.py_decode_string( msg )
 ```
 
 ### Python Rotor Files Generation
 ```
-from enigma_py import enigma_py as enp
-
+import libenigma.gen_rotors as grot
 
 def main():
 
     rotor_names : list = [ "R1" , "R2" , "R3" , "R4" ]
 
     for rotor_name in rotor_names:
-      enp.gen_rotors( rotor_names )
+      grot( rotor_names )
 ```
 
 ### Python Reflector Fies Generation
 ```
-from enigma_py import enigma_py as enp
-
+import libenigma.gen_reflectors as gref
 
 def main():
 
     reflector_names : list = [ "RFL1" , "RFL2" , "RFL3" , "RFL4" ]
 
     for reflector_name in reflector_names:
-      enp.gen_reflectors( reflector_names )
+      gref( reflector_names )
 ```
 
+ ### Zig Build
+ ```
+$ zig build
+```
+*PS : Cross plataform build for python lib is not possible
+*PS2 : The rotor's and reflector's foler must be in the same folder as the executable
+```
+-enigma_bin
+|-main.py // depends on libenigma.so shared lib
+|-libenigma.so 
+|-execfile
+|-reflector_files/
+|-rotor_files/
+```
