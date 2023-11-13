@@ -24,7 +24,7 @@ is necessary to use the same configuration of the instance used for encoding in 
 ## C++ Snippets
 
 ### C++ Enigma Configuration
-```
+```cc
     std::shared_ptr<enigma> cypher = std::make_shared<enigma>();
     (*cypher).manage_reflector_load( reflector::load_reflector_path( "B" ) );
     (*cypher).manage_rotor_load(
@@ -39,7 +39,7 @@ is necessary to use the same configuration of the instance used for encoding in 
 ```
 
 ### C++ Encryption Code Example
-```
+```cc
   int mode = 0;
   switch (mode) {
     case 0 :{
@@ -55,7 +55,7 @@ is necessary to use the same configuration of the instance used for encoding in 
 ```
 
 ### C++ Rotor Files Generation
-```
+```cc
   auto rotor_names = { "R1" , "R2" , "R3" };
 
   for( auto rotor_name : rotor_names ){
@@ -65,7 +65,7 @@ is necessary to use the same configuration of the instance used for encoding in 
 ```
 
 ### C++ Reflector Files Generation
-```
+```cc
   auto reflector_names = { "RFL1" , "RFL2" , "RFL3" };
 
   for( auto reflector_name : reflector_names ){
@@ -77,7 +77,7 @@ is necessary to use the same configuration of the instance used for encoding in 
 ## Python Snippets
 
 ### Python Enigma Configuration Code Example
-```
+```python
 import libenigma
 
 STATIC_ROTOR = libenigma.rotor()
@@ -101,7 +101,7 @@ def main():
 ```
 
 ### Python Desencyption Code Example
-```
+```python
     mode : int = 0
     msg = "Alea jacta est"
     match mode:
@@ -112,7 +112,7 @@ def main():
 ```
 
 ### Python Rotor Files Generation
-```
+```python
 import libenigma.gen_rotors as grot
 
 def main():
@@ -124,7 +124,7 @@ def main():
 ```
 
 ### Python Reflector Fies Generation
-```
+```python
 import libenigma.gen_reflectors as gref
 
 def main():
@@ -136,7 +136,7 @@ def main():
 ```
 
  ### Zig Build
- ```
+ ```bash
 $ zig build
 ```
 * PS : Cross plataform build for python lib is not possible
