@@ -1,11 +1,11 @@
 #include "reflector.hpp"
 #include <iostream>
 
-reflector::reflector(){
+Reflector::Reflector(){
     this->alphabet.resize(2);
 }
 
-void reflector::load( const std::string& path ){
+void Reflector::load( const std::string& path ){
     std::string text;
     std::ifstream file(path);
     if (!file.is_open()) {
@@ -22,7 +22,7 @@ void reflector::load( const std::string& path ){
 }
 
 
-void reflector::reflect( char &character ){
+void Reflector::reflect( char &character ){
     size_t SIZE = this->alphabet.at(0).size();
 	for( size_t i = 0; i < SIZE ; i++ ){
         if( this->alphabet.at(0).at(i) == character ){
@@ -37,6 +37,6 @@ void reflector::reflect( char &character ){
 }
 
 
-std::string reflector::load_reflector_path( const std::string & file_name ){
+std::string Reflector::load_reflector_path( const std::string & file_name ){
 	return "./reflector_files/"+file_name+".rfl";	
 };

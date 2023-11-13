@@ -1,7 +1,7 @@
 #include "rotor.hpp"
 
 
-rotor::rotor(){
+Rotor::Rotor(){
 	this->rotation_count = 0;
 	this->alphabet.resize(2);
     this->alphabet.at(0) = std::vector<char>(95);
@@ -9,7 +9,7 @@ rotor::rotor(){
     std::generate(this->alphabet.at(0).begin(), this->alphabet.at(0).end(), [n]() mutable { return static_cast<char>(n++); });
 }
 
-void rotor::encode( char &character ){
+void Rotor::encode( char &character ){
 	size_t SIZE = this->alphabet.at(0).size();
 	for( size_t i = 0; i < SIZE ; i++ ){
         if( this->alphabet.at(0).at(i) == character ){
@@ -23,7 +23,7 @@ void rotor::encode( char &character ){
     }
 }
 
-void rotor::decode( char &character){
+void Rotor::decode( char &character){
 	size_t SIZE = this->alphabet.at(0).size();
 	for( size_t i = 0; i < SIZE ; i++ ){
         if( this->alphabet.at(1).at(i) == character ){
@@ -37,17 +37,17 @@ void rotor::decode( char &character){
     }
 }
 
-void rotor::rotation(){
+void Rotor::rotation(){
 	this->rotation_count++;
 	std::rotate( this->alphabet[1].begin() , this->alphabet[1].begin() + 1, this->alphabet[1].end() );
 }
 
-void rotor::reversed_rotation(){
+void Rotor::reversed_rotation(){
 	this->rotation_count--;
 	std::rotate( this->alphabet[1].rbegin() , this->alphabet[1].rbegin() + 1, this->alphabet[1].rend() );
 }
 
-void rotor::load( const std::string& path ){
+void Rotor::load( const std::string& path ){
     std::string text;
     std::ifstream file(path);
     if (!file.is_open()) {
@@ -60,11 +60,12 @@ void rotor::load( const std::string& path ){
 	}
 }
 
-char rotor::top(){
+char Rotor::top(){
     return this->alphabet[1].front();
 }
 
 
-std::string rotor::load_rotor_path( const std::string & file_name ){
+std::string Rotor::load_rotor_path( const std::string & file_name ){
 	return "./rotor_files/"+ file_name +".rot";	
 };
+

@@ -1,9 +1,9 @@
 #include <vector>
 #include <algorithm>
 
-struct plugboard{
+struct Plugboard{
 
-    plugboard();
+    Plugboard();
     void encode( char & );
     void connect( int , int );
     std::vector<std::vector<char>>alphabet;

@@ -4,8 +4,8 @@
 #include <string>
 #include <iostream>
 
-struct reflector{
-    reflector();
+struct Reflector{
+    Reflector();
     void reflect( char & );
     void load( const std::string & );
     static std::string load_reflector_path( const std::string & file_name );

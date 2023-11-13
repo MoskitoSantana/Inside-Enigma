@@ -3,9 +3,9 @@
 #include <fstream>
 #include <iostream>
 
-struct rotor
+struct Rotor
 {
-	rotor();
+	Rotor();
 	void encode( char & );
 	void decode( char & );
 	void load( const std::string & );

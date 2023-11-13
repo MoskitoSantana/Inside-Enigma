@@ -11,7 +11,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MAKE_OPAQUE( std::shared_ptr< std::vector<rotor> > );
+PYBIND11_MAKE_OPAQUE( std::shared_ptr< std::vector<Rotor> > );
 
 PYBIND11_MODULE( libenigma , enigma_mod ){
     
@@ -19,48 +19,48 @@ PYBIND11_MODULE( libenigma , enigma_mod ){
     enigma_mod.def( "gen_rotors" , &gen_rotors , py::arg("path") , "Random Rotor File Configuration Generator " );
     enigma_mod.def( "gen_reflector" , &gen_reflectors , py::arg("path"), "Random Reflector File Configuration Generator" );
 
-    py::class_<rotor , std::shared_ptr<rotor> >( enigma_mod , "rotor" )
+    py::class_<Rotor , std::shared_ptr<Rotor> >( enigma_mod , "Rotor" )
         .def( py::init<>() )
-        .def( "encode" , &rotor::encode , py::arg("character") )
-        .def( "decode" , &rotor::decode , py::arg("character") )
-        .def( "load" , &rotor::load , py::arg("path") )
-        .def( "top" , &rotor::top )
-        .def( "rotation", &rotor::rotation )
-        .def( "reversed_rotation" , &rotor::reversed_rotation )
-        .def_static("load_rotor_path" , &rotor::load_rotor_path, py::arg("file_name"))
-        .def_readwrite( "alphabeth" , &rotor::alphabet)
-        .def_readwrite( "rotation_count" , &rotor::rotation_count ); 
+        .def( "encode" , &Rotor::encode , py::arg("character") )
+        .def( "decode" , &Rotor::decode , py::arg("character") )
+        .def( "load" , &Rotor::load , py::arg("path") )
+        .def( "top" , &Rotor::top )
+        .def( "rotation", &Rotor::rotation )
+        .def( "reversed_rotation" , &Rotor::reversed_rotation )
+        .def_static("load_rotor_path" , &Rotor::load_rotor_path, py::arg("file_name"))
+        .def_readwrite( "alphabeth" , &Rotor::alphabet)
+        .def_readwrite( "rotation_count" , &Rotor::rotation_count ); 
 
-    py::class_<reflector , std::shared_ptr<reflector> >( enigma_mod , "reflector" )
+    py::class_<Reflector , std::shared_ptr<Reflector> >( enigma_mod , "Reflector" )
         .def( py::init<>() )
-        .def( "reflect" ,  &reflector::reflect , py::arg("character") )
-        .def( "load" , &reflector::load , py::arg("path") )
-        .def_static("load_reflector_path", &reflector::load_reflector_path, py::arg("file_name") )
-        .def_readwrite( "alphabet" , &reflector::alphabet );
+        .def( "reflect" ,  &Reflector::reflect , py::arg("character") )
+        .def( "load" , &Reflector::load , py::arg("path") )
+        .def_static("load_Reflector_path", &Reflector::load_Reflector_path, py::arg("file_name") )
+        .def_readwrite( "alphabet" , &Reflector::alphabet );
 
     
-    py::class_<plugboard , std::shared_ptr<plugboard> >( enigma_mod , "plugboard" )
+    py::class_<Plugboard , std::shared_ptr<Plugboard> >( enigma_mod , "Plugboard" )
         .def( py::init<>() )
-        .def( "encode" , &plugboard::encode , py::arg("character") )
-        .def( "connect" ,  &plugboard::connect , py::arg("character_A") , py::arg("character_B")  )
-        .def_readwrite( "alphabet" , &plugboard::alphabet );
+        .def( "encode" , &Plugboard::encode , py::arg("character") )
+        .def( "connect" ,  &Plugboard::connect , py::arg("character_A") , py::arg("character_B")  )
+        .def_readwrite( "alphabet" , &Plugboard::alphabet );
 
-    py::class_<enigma>( enigma_mod , "enigma" )
+    py::class_<Enigma>( enigma_mod , "Enigma" )
         .def( py::init<>() )
-        .def( "encode_string" , &enigma::encode_string , py::arg("string") )
-        .def( "encode_character" , &enigma::encode_character , py::arg("character") )
-        .def( "decode_string" , &enigma::decode_string , py::arg("string") )
-        .def( "decode_character" , &enigma::decode_character , py::arg( "character" ) , py::arg("index") )
-        .def( "swap" , &enigma::swap , py::arg("A") , py::arg("D") , py::arg("C") , py::arg("D")  )
-        .def( "ringstellum" , &enigma::ringstellum , py::arg("character_a") , py::arg("character_b") , py::arg("character_c") , py::arg("character_d") )
-        .def( "handle_rotation" , &enigma::handle_rotation )
-        .def( "handle_reversed_rotation" , &enigma::handle_reversed_rotation )
-        .def( "manage_rotor_load" , &enigma::manage_rotor_load , py::arg( "path_A" ) ,py::arg( "path_B" ), py::arg( "path_C" ), py::arg( "path_D" ) )
-        .def( "manage_reflector_load" , &enigma::manage_reflector_load , py::arg("path") )
-        .def( "manage_plugboard_connections" , &enigma::manage_plugboard_connections , py::arg("A") , py::arg("B") )
-        .def( "py_decode_string" , &enigma::py_decode_string , py::arg("string") )
-        .def( "py_encode_string" , &enigma::py_encode_string , py::arg("string") )
-        .def_readwrite( "wheels" , &enigma::wheels )
-        .def_readwrite( "plug_board" , &enigma::plug_board )
-        .def_readwrite( "mirror" , &enigma::mirror );
+        .def( "encode_string" , &Enigma::encode_string , py::arg("string") )
+        .def( "encode_character" , &Enigma::encode_character , py::arg("character") )
+        .def( "decode_string" , &Enigma::decode_string , py::arg("string") )
+        .def( "decode_character" , &Enigma::decode_character , py::arg( "character" ) , py::arg("index") )
+        .def( "swap" , &Enigma::swap , py::arg("A") , py::arg("D") , py::arg("C") , py::arg("D")  )
+        .def( "ringstellum" , &Enigma::ringstellum , py::arg("character_a") , py::arg("character_b") , py::arg("character_c") , py::arg("character_d") )
+        .def( "handle_rotation" , &Enigma::handle_rotation )
+        .def( "handle_reversed_rotation" , &Enigma::handle_reversed_rotation )
+        .def( "manage_rotor_load" , &Enigma::manage_rotor_load , py::arg( "path_A" ) ,py::arg( "path_B" ), py::arg( "path_C" ), py::arg( "path_D" ) )
+        .def( "manage_reflector_load" , &Enigma::manage_reflector_load , py::arg("path") )
+        .def( "manage_plugboard_connections" , &Enigma::manage_plugboard_connections , py::arg("A") , py::arg("B") )
+        .def( "py_decode_string" , &Enigma::py_decode_string , py::arg("string") )
+        .def( "py_encode_string" , &Enigma::py_encode_string , py::arg("string") )
+        .def_readwrite( "wheels" , &Enigma::wheels )
+        .def_readwrite( "plug_board" , &Enigma::plug_board )
+        .def_readwrite( "mirror" , &Enigma::mirror );
 }
